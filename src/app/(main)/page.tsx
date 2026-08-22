@@ -8,6 +8,7 @@ export default async function HomePage() {
   const { data: categories, error } = await supabase
     .from("symptom_categories")
     .select("*")
+    .is("parent_slug", null)
     .order("sort_order", { ascending: true });
 
   const symptomCategories = categories as SymptomCategory[] | null;

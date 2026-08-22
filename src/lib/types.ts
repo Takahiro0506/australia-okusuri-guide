@@ -1,4 +1,5 @@
-export type SymptomCategorySlug =
+/** トップレベル(親)の症状カテゴリ。アイコンのローカルマッピングに使う。 */
+export type ParentCategorySlug =
   | "throat"
   | "stomach"
   | "head_fever"
@@ -7,7 +8,9 @@ export type SymptomCategorySlug =
 
 export interface SymptomCategory {
   id: string;
-  slug: SymptomCategorySlug;
+  slug: string;
+  /** 親カテゴリは null、子カテゴリは親の slug。 */
+  parent_slug: string | null;
   name_ja: string;
   sort_order: number;
 }

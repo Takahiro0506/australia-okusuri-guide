@@ -1,5 +1,5 @@
 import type { ComponentType } from "react";
-import type { SymptomCategorySlug } from "./types";
+import type { ParentCategorySlug } from "./types";
 import {
   AllergyIcon,
   HeadFeverIcon,
@@ -9,7 +9,7 @@ import {
 } from "@/components/icons";
 
 export const CATEGORY_ICONS: Record<
-  SymptomCategorySlug,
+  ParentCategorySlug,
   ComponentType<{ className?: string }>
 > = {
   throat: ThroatIcon,
@@ -20,5 +20,5 @@ export const CATEGORY_ICONS: Record<
 };
 
 export function getCategoryIcon(slug: string) {
-  return CATEGORY_ICONS[slug as SymptomCategorySlug];
+  return CATEGORY_ICONS[slug as ParentCategorySlug];
 }
