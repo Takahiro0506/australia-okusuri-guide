@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>薬剤師に相談する — 画面遷移モックアップ</title>
+<style>
+  :root{
+    --bg:#F1EFE8;
+    --card:#FFFFFF;
+    --border:#D3D1C7;
+    --accent:#185FA5;
+    --accent-soft:#E9F0F7;
+    --ink:#2B2A26;
+    --ink-2:#6E6C64;
+    --ink-3:#9A978D;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif;
+    padding:40px 24px 64px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .head{max-width:1400px;margin:0 auto 32px}
+  .head h1{font-size:20px;font-weight:600;letter-spacing:.01em}
+  .head p{font-size:13px;color:var(--ink-2);margin-top:6px}
+
+  .rail{
+    display:flex;gap:28px;align-items:flex-start;
+    max-width:1400px;margin:0 auto;
+    overflow-x:auto;padding-bottom:16px;
+  }
+  .col{flex:0 0 268px}
+  .cap{margin-top:12px}
+  .cap .n{
+    display:inline-block;font-size:11px;font-weight:600;color:var(--accent);
+    border:1px solid var(--accent);border-radius:3px;padding:1px 6px;margin-bottom:6px;
+  }
+  .cap .t{font-size:13px;font-weight:600}
+  .cap .d{font-size:12px;color:var(--ink-2);line-height:1.55;margin-top:3px}
+
+  /* phone */
+  .phone{
+    width:268px;background:var(--bg);
+    border:1px solid var(--border);border-radius:22px;
+    overflow:hidden;display:flex;flex-direction:column;height:512px;
+  }
+  .bar{
+    background:var(--card);border-bottom:1px solid var(--border);
+    padding:13px 15px;display:flex;align-items:center;gap:9px;flex:0 0 auto;
+  }
+  .bar .back{color:var(--ink-3);font-size:15px;line-height:1}
+  .bar h2{font-size:14px;font-weight:600}
+  .bar .sub{font-size:11px;color:var(--ink-2);margin-top:2px}
+  .body{padding:13px;overflow:hidden;flex:1 1 auto}
+
+  .row{
+    background:var(--card);border:1px solid var(--border);border-radius:9px;
+    padding:13px 14px;font-size:13px;margin-bottom:8px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .row .chev{color:var(--ink-3);font-size:13px}
+
+  .divider{display:flex;align-items:center;gap:9px;margin:16px 2px 11px}
+  .divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--border)}
+  .divider span{font-size:11px;color:var(--ink-2)}
+
+  .cta{
+    background:var(--accent);color:#fff;border-radius:9px;
+    padding:13px;text-align:center;font-size:13px;font-weight:600;
+  }
+  .cta.ghost{background:var(--card);color:var(--accent);border:1px solid var(--accent)}
+
+  .step{font-size:11px;color:var(--ink-2);margin-bottom:9px;letter-spacing:.02em}
+  .hint{font-size:11px;color:var(--ink-3);margin:-3px 0 10px}
+
+  .chip{
+    background:var(--card);border:1px solid var(--border);border-radius:8px;
+    padding:11px 13px;font-size:13px;margin-bottom:7px;
+    display:flex;align-items:center;gap:9px;
+  }
+  .chip .box{
+    width:15px;height:15px;border:1px solid var(--border);border-radius:3px;
+    flex:0 0 auto;
+  }
+  .chip.on{border-color:var(--accent);background:var(--accent-soft)}
+  .chip.on .box{
+    background:var(--accent);border-color:var(--accent);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .chip.on .box::after{content:"";width:7px;height:4px;border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;transform:rotate(-45deg);margin-top:-2px}
+  .chip .box.rd{border-radius:50%}
+  .chip.on .box.rd::after{margin-top:0;width:6px;height:3px}
+
+  .alert{
+    border:1px solid var(--border);border-left:3px solid #B4462F;
+    background:var(--card);border-radius:6px;
+    padding:9px 11px;font-size:10.5px;color:var(--ink-2);line-height:1.55;margin-top:12px;
+  }
+
+  /* final card */
+  .en{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:15px}
+  .en p{font-size:14px;line-height:1.7;margin-bottom:9px;letter-spacing:.005em}
+  .en .ask{font-weight:600}
+  .en .note{
+    font-size:12.5px;line-height:1.65;color:var(--ink);
+    border-top:1px solid var(--border);padding-top:11px;margin-top:12px;margin-bottom:0;
+  }
+  .ja{
+    font-size:11px;color:var(--ink-2);line-height:1.65;
+    background:var(--card);border:1px solid var(--border);border-radius:8px;
+    padding:10px 12px;margin-top:9px;
+  }
+  .ja b{display:block;color:var(--ink-3);font-size:10px;font-weight:600;margin-bottom:4px}
+
+  .foot{
+    flex:0 0 auto;border-top:1px solid var(--border);background:var(--card);
+    padding:9px 13px;font-size:9.5px;color:var(--ink-3);line-height:1.5;
+  }
+  .fs{
+    background:var(--card);border-top:1px solid var(--border);
+    padding:11px 13px;display:flex;gap:8px;flex:0 0 auto;
+  }
+  .fs div{
+    flex:1;text-align:center;font-size:11.5px;font-weight:600;
+    border-radius:7px;padding:10px 0;
+  }
+  .fs .a{background:var(--accent);color:#fff}
+  .fs .b{border:1px solid var(--border);color:var(--ink-2)}
+</style>
+</head>
+<body>
+
+<div class="head">
+  <h1>薬剤師に相談する — 画面遷移</h1>
+  <p>既存の配色(#F1EFE8 / #FFFFFF / #D3D1C7 / #185FA5)を継承。3ステップでカードが完成します。</p>
+</div>
+
+<div class="rail">
+
+  <!-- 1 -->
+  <div class="col">
+    <div class="phone">
+      <div class="bar">
+        <div>
+          <h2>オーストラリアお薬ガイド</h2>
+          <div class="sub">気になる症状を選んでください</div>
+        </div>
+      </div>
+      <div class="body">
+        <div class="row"><span>風邪の症状</span><span class="chev">›</span></div>
+        <div class="row"><span>お腹の不調</span><span class="chev">›</span></div>
+        <div class="row"><span>頭痛・発熱</span><span class="chev">›</span></div>
+        <div class="divider"><span>どれを選べばいいか分からない</span></div>
+        <div class="cta">薬剤師に相談する</div>
+      </div>
+      <div class="foot">このアプリは、豪州で市販されている薬に関する一般的な情報提供を目的としています。個別の症状に対する診断や治療の指示ではありません…</div>
+    </div>
+    <div class="cap">
+      <span class="n">1</span>
+      <div class="t">ホーム — 第2の入口</div>
+      <div class="d">症状カテゴリの下に置く。商品を選べない人のための導線なので、一覧より下で構わない。</div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="col">
+    <div class="phone">
+      <div class="bar"><span class="back">‹</span><h2>薬剤師に相談する</h2></div>
+      <div class="body">
+        <div class="step">1 / 3 &nbsp;症状</div>
+        <div class="hint">あてはまるものをすべて選んでください</div>
+        <div class="chip on"><span class="box"></span>喉が痛い</div>
+        <div class="chip on"><span class="box"></span>乾いた咳が出る</div>
+        <div class="chip"><span class="box"></span>痰がからむ咳が出る</div>
+        <div class="chip"><span class="box"></span>鼻水・鼻づまり</div>
+        <div class="chip on"><span class="box"></span>熱はない</div>
+        <div class="alert">息苦しさ、強い胸の痛み、意識がはっきりしない場合は、薬局ではなく医療機関を受診してください。</div>
+      </div>
+      <div class="fs"><div class="a">次へ</div></div>
+    </div>
+    <div class="cap">
+      <span class="n">2</span>
+      <div class="t">症状(複数選択)</div>
+      <div class="d">日常語のみ。赤枠の注意文は<b>選択内容に関わらず常時表示</b>する固定テキスト。条件分岐にしない。</div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="col">
+    <div class="phone">
+      <div class="bar"><span class="back">‹</span><h2>薬剤師に相談する</h2></div>
+      <div class="body">
+        <div class="step">2 / 3 &nbsp;いつから</div>
+        <div class="hint">ひとつ選んでください</div>
+        <div class="chip"><span class="box rd"></span>今日から</div>
+        <div class="chip"><span class="box rd"></span>昨日から</div>
+        <div class="chip on"><span class="box rd"></span>2〜3日前から</div>
+        <div class="chip"><span class="box rd"></span>1週間ほど前から</div>
+        <div class="chip"><span class="box rd"></span>2週間以上前から</div>
+      </div>
+      <div class="fs"><div class="a">次へ</div></div>
+    </div>
+    <div class="cap">
+      <span class="n">3</span>
+      <div class="t">期間(単一選択)</div>
+      <div class="d">薬剤師が最も知りたい情報。タップした時点で自動的に次へ進めても良い。</div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="col">
+    <div class="phone">
+      <div class="bar"><span class="back">‹</span><h2>薬剤師に相談する</h2></div>
+      <div class="body">
+        <div class="step">3 / 3 &nbsp;伝えておきたいこと</div>
+        <div class="hint">なければ選ばずに進めます</div>
+        <div class="chip on"><span class="box"></span>高血圧の薬を飲んでいる</div>
+        <div class="chip"><span class="box"></span>妊娠中・授乳中</div>
+        <div class="chip"><span class="box"></span>薬のアレルギーがある</div>
+        <div class="chip on"><span class="box"></span>眠くならない薬がいい</div>
+        <div class="chip"><span class="box"></span>錠剤が苦手</div>
+      </div>
+      <div class="fs"><div class="a">英語のカードを作る</div></div>
+    </div>
+    <div class="cap">
+      <span class="n">4</span>
+      <div class="t">状況・希望(複数選択)</div>
+      <div class="d">全項目スキップ可。ここで集めた情報は端末内のみで保持し、保存も送信もしない。</div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="col">
+    <div class="phone">
+      <div class="bar"><span class="back">‹</span><h2>薬剤師に見せる</h2></div>
+      <div class="body">
+        <div class="en">
+          <p>I have a sore throat and a dry cough. I do not have a fever.</p>
+          <p>It started 2–3 days ago.</p>
+          <p>I am taking medication for high blood pressure.</p>
+          <p>I would prefer a non-drowsy medicine.</p>
+          <p class="ask">Could you recommend something suitable?</p>
+          <p class="note">I'm not confident in English. Could you please write down your answer, or show me the product?</p>
+        </div>
+        <div class="ja">
+          <b>日本語で確認</b>
+          喉の痛みと乾いた咳があります。熱はありません。2〜3日前からです。高血圧の薬を飲んでいます。眠くならない薬を希望します。/ 英語が苦手なので、答えを書くか商品を見せてください。
+        </div>
+      </div>
+      <div class="fs">
+        <div class="a">全画面で見せる</div>
+        <div class="b">選び直す</div>
+      </div>
+    </div>
+    <div class="cap">
+      <span class="n">5</span>
+      <div class="t">完成カード</div>
+      <div class="d">最後の1文が双方向化の要。これがないと薬剤師は通常速度の英語で返答してしまう。</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
