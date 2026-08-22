@@ -68,6 +68,18 @@ export default async function HomePage() {
             })}
           </ul>
         )}
+
+        <div className="border-t border-line px-5 py-5">
+          <p className="mb-3 text-center text-sm font-medium text-gray-500">
+            どれを選べばいいか分からない
+          </p>
+          <Link
+            href="/consult"
+            className="block w-full rounded-lg bg-accent py-3 text-center text-sm font-semibold text-white transition hover:opacity-90"
+          >
+            薬剤師に相談する
+          </Link>
+        </div>
       </div>
     </div>
   );

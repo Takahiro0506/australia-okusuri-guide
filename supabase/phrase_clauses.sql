@@ -1,4 +1,9 @@
--- Supabase の SQL Editor で実行してください。
+-- ⚠️ このファイルは初回セットアップ専用です。テーブルには既に
+--    supabase/phrase_clauses_seed.csv から投入した本番データが入っています。
+--    このファイルを丸ごと再実行すると drop table でその内容が全て消えます。
+--    行の削除・更新など個別の変更は、このファイルに追記せず
+--    SQL Editorで新しいクエリとして実行してください。
+--
 -- 「薬剤師に相談する」機能(/consult)で使う英文カードの部品テーブルです。
 --
 -- clause_type の4種類:
@@ -58,8 +63,6 @@ create policy "active phrase clauses are readable"
   to anon, authenticated
   using (is_active = true);
 
--- 投入例(1行)。実際のシードは別途 CSV から生成します。
-insert into public.phrase_clauses
-  (clause_type, applies_to_category, label_ja, text_en, sort_order, is_active, last_reviewed_date)
-values
-  ('symptom', 'cold', '喉が痛い', 'I have a sore throat.', 1, true, current_date);
+-- 実際のシードは supabase/phrase_clauses_seed.csv を
+-- Table Editor の「Import data from CSV」で投入してください
+-- (SQL Editorでのinsert文は使わない)。
