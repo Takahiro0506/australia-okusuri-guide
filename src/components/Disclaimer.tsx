@@ -1,6 +1,6 @@
 export function Disclaimer() {
   return (
-    <footer className="border-t border-gray-200 bg-gray-50 px-4 py-3">
+    <footer className="border-t border-line bg-white px-4 py-3">
       <p className="mx-auto max-w-md text-center text-[11px] leading-relaxed text-gray-500">
         このアプリは、豪州で市販されている薬に関する一般的な情報提供を目的としています。
         個別の症状に対する診断や治療の指示ではありません。

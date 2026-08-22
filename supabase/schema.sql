@@ -1,5 +1,5 @@
 -- Supabase の SQL Editor で実行してください。
--- カテゴリ構成・実商品データは products_review_v6.xlsx に基づいています。
+-- カテゴリ構成・実商品データは products_review_v8.xlsx に基づいています。
 --
 -- 親子カテゴリ構成:
 --   風邪の症状(cold)        → 風邪(複合症状) / 喉の痛み / 咳 (子3つ)
@@ -12,7 +12,10 @@
 -- 「成人向け」の一文を追加する方針に統一)、確認列は全30件 OK のため
 -- is_active はすべて true にしています。v6 では残っていた単独の年齢表記
 -- (Difflam Sore Throat Spray / Buscopan / Panadol の caution_flags)も
--- 空欄になり、caution_flags は null にしています。
+-- 空欄になり、caution_flags は null にしています。v8 では active_ingredient に
+-- 混入していた日本語(8件: 上記/配合/相当 などの表現)を英語表記に修正済みです。
+-- 生成には scripts/generate_products_seed.py を使用しています
+-- (brand_name_en / active_ingredient への日本語混入を警告する機能つき)。
 -- last_reviewed_date は xlsx に日付列がなかったため、このシード投入日を暫定値として
 -- 入れています。実際のレビュー日が分かり次第 UPDATE してください。
 
@@ -89,7 +92,7 @@ insert into public.symptom_categories (slug, parent_slug, name_ja, sort_order) v
   ('skin_insect_bite', 'skin', '虫刺され', 2),
   ('skin_sunburn', 'skin', '日焼け', 3);
 
--- 商品データ(products_review_v6.xlsx より、2026-08-22 時点)
+-- 商品データ(products_review_v8.xlsx より、2026-08-22 時点)
 insert into public.products
   (category_id, brand_name_en, description_ja, active_ingredient, caution_flags, state_note, last_reviewed_date, source_note, is_active)
 values
@@ -97,7 +100,7 @@ values
     (select id from public.symptom_categories where slug = 'cold_combined'),
     'Demazin Cold & Flu Relief Day + Night',
     '発熱・鼻づまり・喉の痛みなど複数症状に効く総合感冒薬。昼夜で成分が異なる',
-    'Day: Paracetamol 500mg, Phenylephrine hydrochloride 5mg / Night: 上記+Chlorphenamine maleate 2mg(抗ヒスタミン)',
+    'Day: Paracetamol 500mg, Phenylephrine hydrochloride 5mg / Night: Paracetamol 500mg, Phenylephrine hydrochloride 5mg, Chlorphenamine maleate 2mg',
     ARRAY['Day非眠気', 'Night剤は眠気の可能性あり']::text[],
     null,
     date '2026-08-22',
@@ -130,7 +133,7 @@ values
     (select id from public.symptom_categories where slug = 'cold_throat'),
     'Betadine Sore Throat Gargle',
     '殺菌成分入りのうがい薬、喉の痛みに(Isoginの代替候補として提案)',
-    'Povidone-iodine 1〜7.5% w/v(製品により異なる)',
+    'Povidone-iodine 1% w/v (Ready To Use)',
     ARRAY['甲状腺疾患のある方は要相談']::text[],
     null,
     date '2026-08-22',
@@ -141,7 +144,7 @@ values
     (select id from public.symptom_categories where slug = 'cold_cough'),
     'Duro-Tuss Dry Cough Liquid Forte',
     '乾いた咳(痰の絡まない咳)用の鎮咳シロップ',
-    'Dextromethorphan hydrobromide monohydrate（Forte処方、ハーブ成分は含まない）',
+    'Dextromethorphan hydrobromide monohydrate',
     ARRAY['非眠気']::text[],
     null,
     date '2026-08-22',
@@ -240,7 +243,7 @@ values
     (select id from public.symptom_categories where slug = 'skin_scratch'),
     'Bepanthen Antiseptic Cream',
     '傷・虫刺され・日焼けなど幅広く使える抗菌クリーム',
-    'Dexpanthenol配合の抗菌クリーム',
+    'Dexpanthenol',
     ARRAY['赤ちゃんにも使用可とされる']::text[],
     null,
     date '2026-08-22',
@@ -251,7 +254,7 @@ values
     (select id from public.symptom_categories where slug = 'skin_sunburn'),
     'Crystasoothe Burn Gel',
     '日焼け・軽度のやけどを冷却・保護するアロエ配合ジェル',
-    'Aloe vera配合(その他Carbomer等)',
+    'Aloe vera, Carbomer 980NF',
     ARRAY['年齢制限の記載なし']::text[],
     null,
     date '2026-08-22',
@@ -262,7 +265,7 @@ values
     (select id from public.symptom_categories where slug = 'cold_combined'),
     'Codral PE Day & Night Tablets 48 Pack',
     '頭痛・発熱・喉の痛み・鼻づまりや鼻水など、風邪の複数症状を昼夜に分けて和らげる',
-    'Day: Paracetamol 500mg, Phenylephrine hydrochloride 5mg / Night: 上記 + Chlorpheniramine maleate 2mg',
+    'Day: Paracetamol 500mg, Phenylephrine hydrochloride 5mg / Night: Paracetamol 500mg, Phenylephrine hydrochloride 5mg, Chlorpheniramine maleate 2mg',
     ARRAY['Dayは非眠気', 'Night剤は眠気の可能性あり', '他のパラセタモール製品と併用しない']::text[],
     null,
     date '2026-08-22',
@@ -339,7 +342,7 @@ values
     (select id from public.symptom_categories where slug = 'stomach'),
     'Hydralyte Electrolyte Effervescent Orange 20 Tablets',
     '嘔吐・下痢や発汗などで失われた水分と電解質の補給を助ける発泡タブレット',
-    'Glucose 1.62g, Citric acid 672mg, Sodium, Potassium（各1錠）',
+    'Glucose 1.62g, Citric acid 672mg, Sodium, Potassium (per tablet)',
     ARRAY['腎疾患または心臓・血圧の薬を使用中の方は要相談']::text[],
     null,
     date '2026-08-22',
@@ -361,7 +364,7 @@ values
     (select id from public.symptom_categories where slug = 'head_fever'),
     'Nurofen Zavance Fast Pain Relief Tablets 24 Pack',
     '頭痛・筋肉痛・歯痛などの痛みや炎症、発熱を和らげる速効タイプの鎮痛剤',
-    'Ibuprofen sodium dihydrate 256mg（Ibuprofen 200mg相当）',
+    'Ibuprofen sodium dihydrate 256mg (equivalent to Ibuprofen 200mg)',
     ARRAY['胃潰瘍・腎臓・心臓の問題がある方は使用不可', 'NSAID']::text[],
     null,
     date '2026-08-22',
@@ -423,3 +426,4 @@ values
     'https://www.chemistwarehouse.com.au/buy/31143-ego-soov-antiseptic-cream-50g',
     true
   );
+

@@ -15,9 +15,9 @@ export default async function HomePage() {
 
   return (
     <div className="mx-auto max-w-md px-4 py-8">
-      <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-        <div className="flex items-center gap-3 border-b border-gray-100 px-5 py-4">
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-blue-200 text-blue-600">
+      <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-sm">
+        <div className="flex items-center gap-3 border-b border-line px-5 py-4">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-accent/30 text-accent">
             <MedicalBagIcon className="h-5 w-5" />
           </span>
           <div>
@@ -49,7 +49,7 @@ export default async function HomePage() {
                   key={category.id}
                   className={
                     index !== symptomCategories.length - 1
-                      ? "border-b border-gray-100"
+                      ? "border-b border-line"
                       : ""
                   }
                 >

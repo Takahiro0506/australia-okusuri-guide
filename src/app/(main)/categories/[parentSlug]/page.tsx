@@ -44,8 +44,8 @@ export default async function ParentCategoryPage({
 
     return (
       <div className="mx-auto max-w-md px-4 py-8">
-        <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-          <div className="flex items-center gap-2 border-b border-gray-100 px-5 py-4">
+        <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-sm">
+          <div className="flex items-center gap-2 border-b border-line px-5 py-4">
             <Link
               href="/"
               aria-label="症状選択に戻る"
@@ -96,7 +96,7 @@ export default async function ParentCategoryPage({
                 key={child.id}
                 className={
                   index !== childCategories.length - 1
-                    ? "border-b border-gray-100"
+                    ? "border-b border-line"
                     : ""
                 }
               >

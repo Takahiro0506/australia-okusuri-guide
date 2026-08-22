@@ -19,7 +19,7 @@ export function ProductList({
 
   if (!products || products.length === 0) {
     return (
-      <p className="rounded-lg bg-gray-50 p-4 text-sm text-gray-500">
+      <p className="rounded-lg border border-line bg-white p-4 text-sm text-gray-500">
         現在このカテゴリに登録されている商品はありません。
       </p>
     );
@@ -28,7 +28,7 @@ export function ProductList({
   return (
     <ul className="flex flex-col gap-4">
       {products.map((product) => (
-        <li key={product.id} className="rounded-xl bg-gray-50 p-4">
+        <li key={product.id} className="rounded-xl border border-line bg-white p-4">
           <p className="text-base font-semibold text-gray-900">
             {product.brand_name_en}
           </p>
@@ -61,7 +61,7 @@ export function ProductList({
           <div className="mt-4 flex items-center justify-between gap-3">
             <Link
               href={`/products/${product.id}/show`}
-              className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-600 transition hover:bg-blue-100 active:scale-[0.98]"
+              className="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-4 py-2 text-sm font-semibold text-accent transition hover:bg-accent/20 active:scale-[0.98]"
             >
               <EyeIcon className="h-4 w-4" />
               店員さんに見せる
