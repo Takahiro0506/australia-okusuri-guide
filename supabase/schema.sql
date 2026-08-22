@@ -1,5 +1,5 @@
 -- Supabase の SQL Editor で実行してください。
--- カテゴリ構成・実商品データは products_review_v5.xlsx に基づいています。
+-- カテゴリ構成・実商品データは products_review_v6.xlsx に基づいています。
 --
 -- 親子カテゴリ構成:
 --   風邪の症状(cold)        → 風邪(複合症状) / 喉の痛み / 咳 (子3つ)
@@ -10,7 +10,9 @@
 --
 -- v5 で caution_flags の年齢表記は大部分削除され(アプリ全体の免責文言に
 -- 「成人向け」の一文を追加する方針に統一)、確認列は全30件 OK のため
--- is_active はすべて true にしています。
+-- is_active はすべて true にしています。v6 では残っていた単独の年齢表記
+-- (Difflam Sore Throat Spray / Buscopan / Panadol の caution_flags)も
+-- 空欄になり、caution_flags は null にしています。
 -- last_reviewed_date は xlsx に日付列がなかったため、このシード投入日を暫定値として
 -- 入れています。実際のレビュー日が分かり次第 UPDATE してください。
 
@@ -87,7 +89,7 @@ insert into public.symptom_categories (slug, parent_slug, name_ja, sort_order) v
   ('skin_insect_bite', 'skin', '虫刺され', 2),
   ('skin_sunburn', 'skin', '日焼け', 3);
 
--- 商品データ(products_review_v5.xlsx より、2026-08-22 時点)
+-- 商品データ(products_review_v6.xlsx より、2026-08-22 時点)
 insert into public.products
   (category_id, brand_name_en, description_ja, active_ingredient, caution_flags, state_note, last_reviewed_date, source_note, is_active)
 values
@@ -118,7 +120,7 @@ values
     'Difflam Sore Throat Spray',
     '喉の痛み・口内炎に効く鎮痛スプレー',
     'Benzydamine hydrochloride',
-    ARRAY['12歳以上']::text[],
+    null,
     null,
     date '2026-08-22',
     'Chemist Warehouse商品ページ',
@@ -173,7 +175,7 @@ values
     'Buscopan',
     '胃・腹部のけいれん痛を和らげる錠剤',
     'Hyoscine butylbromide 10mg',
-    ARRAY['6歳以上']::text[],
+    null,
     null,
     date '2026-08-22',
     'Chemist Warehouse / Buscopan公式サイト',
@@ -184,7 +186,7 @@ values
     'Panadol',
     '頭痛・発熱に効く鎮痛解熱剤、胃に優しい',
     'Paracetamol 500mg',
-    ARRAY['7歳以上']::text[],
+    null,
     null,
     date '2026-08-22',
     'Chemist Warehouse商品ページ',
