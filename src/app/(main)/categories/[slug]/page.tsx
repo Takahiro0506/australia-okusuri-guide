@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getCategoryBySlug } from "@/lib/categories";
 import { supabase } from "@/lib/supabase";
-import type { Product } from "@/lib/types";
+import type { Product, SymptomCategory } from "@/lib/types";
 import { ChevronLeftIcon, EyeIcon, WarningIcon } from "@/components/icons";
 
 export default async function CategoryProductsPage({
@@ -11,16 +10,21 @@ export default async function CategoryProductsPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const category = getCategoryBySlug(slug);
 
-  if (!category) {
+  const { data: category, error: categoryError } = await supabase
+    .from("symptom_categories")
+    .select("*")
+    .eq("slug", slug)
+    .maybeSingle<SymptomCategory>();
+
+  if (categoryError || !category) {
     notFound();
   }
 
   const { data: products, error } = await supabase
     .from("products")
     .select("*")
-    .eq("category", slug)
+    .eq("category_id", category.id)
     .order("brand_name_en", { ascending: true });
 
   return (
@@ -34,7 +38,7 @@ export default async function CategoryProductsPage({
           >
             <ChevronLeftIcon className="h-5 w-5" />
           </Link>
-          <h1 className="text-base font-bold text-gray-900">{category.label}</h1>
+          <h1 className="text-base font-bold text-gray-900">{category.name_ja}</h1>
         </div>
 
         <div className="p-5">
@@ -56,13 +60,15 @@ export default async function CategoryProductsPage({
                 <p className="text-base font-semibold text-gray-900">
                   {product.brand_name_en}
                 </p>
-                <p className="mt-1 text-sm text-gray-500">
-                  {product.description_ja}
-                </p>
+                {product.description_ja && (
+                  <p className="mt-1 text-sm text-gray-500">
+                    {product.description_ja}
+                  </p>
+                )}
 
-                {product.caution_tags && product.caution_tags.length > 0 && (
+                {product.caution_flags && product.caution_flags.length > 0 && (
                   <ul className="mt-3 flex flex-col gap-1.5">
-                    {product.caution_tags.map((tag) => (
+                    {product.caution_flags.map((tag) => (
                       <li
                         key={tag}
                         className="flex items-center gap-1.5 text-sm font-semibold text-amber-700"
@@ -88,11 +94,9 @@ export default async function CategoryProductsPage({
                     <EyeIcon className="h-4 w-4" />
                     店員さんに見せる
                   </Link>
-                  {product.last_confirmed_date && (
-                    <span className="shrink-0 text-[11px] text-gray-400">
-                      最終確認日: {product.last_confirmed_date}
-                    </span>
-                  )}
+                  <span className="shrink-0 text-[11px] text-gray-400">
+                    最終確認日: {product.last_reviewed_date}
+                  </span>
                 </div>
               </li>
             ))}

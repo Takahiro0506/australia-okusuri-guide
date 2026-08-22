@@ -5,15 +5,25 @@ export type SymptomCategorySlug =
   | "allergy"
   | "skin";
 
+export interface SymptomCategory {
+  id: string;
+  slug: SymptomCategorySlug;
+  name_ja: string;
+  sort_order: number;
+}
+
 export interface Product {
   id: string;
-  category: SymptomCategorySlug;
+  category_id: string;
   /** 店頭の実物表記(英語のみ)。店員さんに見せる画面で使用する。 */
   brand_name_en: string;
   /** 日本語の説明。店員さんに見せる画面では表示しない。 */
-  description_ja: string;
-  active_ingredient: string;
-  caution_tags: string[] | null;
+  description_ja: string | null;
+  active_ingredient: string | null;
+  caution_flags: string[] | null;
   state_note: string | null;
-  last_confirmed_date: string | null;
+  last_reviewed_date: string;
+  source_note: string | null;
+  is_active: boolean;
+  created_at: string;
 }

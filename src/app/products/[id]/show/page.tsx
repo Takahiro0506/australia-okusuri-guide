@@ -27,9 +27,11 @@ export default async function ShowToStaffPage({
       <p className="mb-10 text-4xl font-extrabold leading-tight tracking-tight text-gray-900 sm:text-5xl">
         {product.brand_name_en}
       </p>
-      <p className="text-xl font-medium text-gray-600 sm:text-2xl">
-        {product.active_ingredient}
-      </p>
+      {product.active_ingredient && (
+        <p className="text-xl font-medium text-gray-600 sm:text-2xl">
+          {product.active_ingredient}
+        </p>
+      )}
     </div>
   );
 }
