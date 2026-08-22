@@ -1,6 +1,6 @@
 /** トップレベル(親)の症状カテゴリ。アイコンのローカルマッピングに使う。 */
 export type ParentCategorySlug =
-  | "throat"
+  | "cold"
   | "stomach"
   | "head_fever"
   | "allergy"

@@ -12,7 +12,7 @@ export const CATEGORY_ICONS: Record<
   ParentCategorySlug,
   ComponentType<{ className?: string }>
 > = {
-  throat: ThroatIcon,
+  cold: ThroatIcon,
   stomach: StomachIcon,
   head_fever: HeadFeverIcon,
   allergy: AllergyIcon,
