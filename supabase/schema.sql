@@ -1,5 +1,5 @@
 -- Supabase の SQL Editor で実行してください。
--- カテゴリ構成を products_review_v4.xlsx に基づき作り直し、実商品データを投入します。
+-- カテゴリ構成・実商品データは products_review_v5.xlsx に基づいています。
 --
 -- 親子カテゴリ構成:
 --   風邪の症状(cold)        → 風邪(複合症状) / 喉の痛み / 咳 (子3つ)
@@ -8,8 +8,9 @@
 --   アレルギー・花粉症(allergy) → 子カテゴリなし
 --   擦り傷・虫刺され・日焼け(skin) → 擦り傷 / 虫刺され / 日焼け (子3つ)
 --
--- is_active は xlsx の「確認」列が "OK" の行のみ true、それ以外(要確認 / 未記入)は
--- false としています(Naoさんのレビュー待ちの商品を公開側に出さないための運用)。
+-- v5 で caution_flags の年齢表記は大部分削除され(アプリ全体の免責文言に
+-- 「成人向け」の一文を追加する方針に統一)、確認列は全30件 OK のため
+-- is_active はすべて true にしています。
 -- last_reviewed_date は xlsx に日付列がなかったため、このシード投入日を暫定値として
 -- 入れています。実際のレビュー日が分かり次第 UPDATE してください。
 
@@ -86,7 +87,7 @@ insert into public.symptom_categories (slug, parent_slug, name_ja, sort_order) v
   ('skin_insect_bite', 'skin', '虫刺され', 2),
   ('skin_sunburn', 'skin', '日焼け', 3);
 
--- 商品データ(products_review_v4.xlsx より、2026-08-22 時点)
+-- 商品データ(products_review_v5.xlsx より、2026-08-22 時点)
 insert into public.products
   (category_id, brand_name_en, description_ja, active_ingredient, caution_flags, state_note, last_reviewed_date, source_note, is_active)
 values
@@ -95,7 +96,7 @@ values
     'Demazin Cold & Flu Relief Day + Night',
     '発熱・鼻づまり・喉の痛みなど複数症状に効く総合感冒薬。昼夜で成分が異なる',
     'Day: Paracetamol 500mg, Phenylephrine hydrochloride 5mg / Night: 上記+Chlorphenamine maleate 2mg(抗ヒスタミン)',
-    ARRAY['12歳以上', 'Day非眠気', 'Night剤は眠気の可能性あり']::text[],
+    ARRAY['Day非眠気', 'Night剤は眠気の可能性あり']::text[],
     null,
     date '2026-08-22',
     'Chemist Warehouse商品ページ',
@@ -106,7 +107,7 @@ values
     'Nurofen Cold and Flu Multi-Symptom Relief',
     '発熱・鼻づまり・喉の痛みに効く鎮痛系感冒薬',
     'Ibuprofen 200mg, Phenylephrine hydrochloride 5mg',
-    ARRAY['12歳以上', '非眠気タイプ', '胃腸に負担の可能性(NSAID)']::text[],
+    ARRAY['非眠気タイプ', '胃腸に負担の可能性(NSAID)']::text[],
     null,
     date '2026-08-22',
     'Chemist Warehouse商品ページ',
@@ -143,7 +144,7 @@ values
     null,
     date '2026-08-22',
     'Chemist Warehouse商品ページ',
-    false
+    true
   ),
   (
     (select id from public.symptom_categories where slug = 'cold_cough'),
@@ -161,7 +162,7 @@ values
     'Gastro-Stop',
     '下痢の症状を抑えるカプセル(豪州で1位の下痢止めブランド)',
     'Loperamide 2mg',
-    ARRAY['12歳以上', '症状が48時間以上続く場合は要受診']::text[],
+    ARRAY['症状が48時間以上続く場合は要受診']::text[],
     null,
     date '2026-08-22',
     'Chemist Warehouse商品ページ',
@@ -194,7 +195,7 @@ values
     'Nurofen',
     '頭痛・発熱・炎症に効く鎮痛剤',
     'Ibuprofen 200mg',
-    ARRAY['7歳以上', '胃腸に負担の可能性(NSAID)']::text[],
+    ARRAY['胃腸に負担の可能性(NSAID)']::text[],
     null,
     date '2026-08-22',
     'Chemist Warehouse商品ページ',
@@ -205,7 +206,7 @@ values
     'Telfast',
     '非眠気タイプの花粉症・アレルギー薬、効果は最大24時間',
     'Fexofenadine hydrochloride 180mg',
-    ARRAY['非眠気', '12歳以上']::text[],
+    ARRAY['非眠気']::text[],
     null,
     date '2026-08-22',
     'Chemist Warehouse商品ページ',
@@ -227,7 +228,7 @@ values
     'Soov Bite',
     '虫刺され・虫刺傷の痛みとかゆみを抑えるジェル',
     'Lidocaine hydrochloride 3%, Cetrimide 0.5%',
-    ARRAY['2歳以上', '湿疹・皮膚炎には使用不可']::text[],
+    ARRAY['湿疹・皮膚炎には使用不可']::text[],
     null,
     date '2026-08-22',
     'Chemist Warehouse商品ページ',
@@ -260,132 +261,132 @@ values
     'Codral PE Day & Night Tablets 48 Pack',
     '頭痛・発熱・喉の痛み・鼻づまりや鼻水など、風邪の複数症状を昼夜に分けて和らげる',
     'Day: Paracetamol 500mg, Phenylephrine hydrochloride 5mg / Night: 上記 + Chlorpheniramine maleate 2mg',
-    ARRAY['12歳以上', 'Dayは非眠気', 'Night剤は眠気の可能性あり', '他のパラセタモール製品と併用しない']::text[],
+    ARRAY['Dayは非眠気', 'Night剤は眠気の可能性あり', '他のパラセタモール製品と併用しない']::text[],
     null,
     date '2026-08-22',
     'https://www.chemistwarehouse.com.au/buy/85158/codral-pe-day-night-tablets-48-pack',
-    false
+    true
   ),
   (
     (select id from public.symptom_categories where slug = 'cold_combined'),
     'Dimetapp Cough Cold & Flu Day & Night 48 Capsules',
     '発熱・頭痛・体の痛み・鼻づまり・乾いた咳などを昼夜に分けて和らげる総合感冒薬',
     'Day: Paracetamol 500mg, Dextromethorphan HBr 10mg, Phenylephrine HCl 5mg / Night: Paracetamol 500mg, Dextromethorphan HBr 10mg, Chlorpheniramine maleate 2mg',
-    ARRAY['12歳以上', 'Night剤は眠気の可能性あり', '他のパラセタモール製品と併用しない']::text[],
+    ARRAY['Night剤は眠気の可能性あり', '他のパラセタモール製品と併用しない']::text[],
     null,
     date '2026-08-22',
     'https://www.chemistwarehouse.com.au/buy/124587/dimetapp-cough-cold-flu-day-night-48-capsules',
-    false
+    true
   ),
   (
     (select id from public.symptom_categories where slug = 'cold_throat'),
     'Strepsils Throat Lozenges Soothing Honey & Lemon 36 Pack',
     '喉の不快感を和らげる、抗菌成分入りの定番トローチ',
     'Dichlorobenzyl alcohol 1.2mg, Amylmetacresol 600micrograms',
-    ARRAY['6歳超', '糖類を含む', '症状が続く場合は要相談']::text[],
+    ARRAY['糖類を含む', '症状が続く場合は要相談']::text[],
     null,
     date '2026-08-22',
     'https://www.chemistwarehouse.com.au/buy/53953/strepsils-sore-throat-lozenges-antibacterial-honey-lemon-36-pack',
-    false
+    true
   ),
   (
     (select id from public.symptom_categories where slug = 'cold_throat'),
     'Difflam Sore Throat Sugar Free Honey & Lemon 16 Lozenges',
     '炎症による喉の痛みや腫れを和らげる、抗炎症・抗菌タイプのトローチ',
     'Benzydamine hydrochloride 3mg, Cetylpyridinium chloride 1.33mg',
-    ARRAY['6歳以上', '抗炎症薬へのアレルギーがある方は使用不可', '過量で下痢の可能性']::text[],
+    ARRAY['抗炎症薬へのアレルギーがある方は使用不可', '過量で下痢の可能性']::text[],
     null,
     date '2026-08-22',
     'https://www.chemistwarehouse.com.au/buy/41060/difflam-sore-throat-sugar-free-honey-and-lemon-16-lozenges',
-    false
+    true
   ),
   (
     (select id from public.symptom_categories where slug = 'cold_cough'),
     'Bisolvon Chesty Forte Oral Cough Liquid 200mL',
     '胸に絡む痰を薄めて出しやすくする、非眠気タイプの去痰シロップ',
     'Bromhexine hydrochloride 8mg/5mL',
-    ARRAY['6歳未満は使用不可', '6〜11歳は専門家の助言に従う', '症状が続く場合は要相談']::text[],
+    ARRAY['症状が続く場合は要相談']::text[],
     null,
     date '2026-08-22',
     'https://www.chemistwarehouse.com.au/buy/130410/bisolvon-chesty-forte-200ml',
-    false
+    true
   ),
   (
     (select id from public.symptom_categories where slug = 'cold_cough'),
     'Bisolvon Dry Cough Oral Liquid 200mL',
     '痰の絡まない乾いた刺激性の咳を抑えるシロップ',
     'Dextromethorphan hydrobromide 10mg/5mL',
-    ARRAY['6歳以上', '眠気が出る可能性あり', '他の鎮咳薬や一部の抗うつ薬との併用は要相談']::text[],
+    ARRAY['眠気が出る可能性あり', '他の鎮咳薬や一部の抗うつ薬との併用は要相談']::text[],
     null,
     date '2026-08-22',
     'https://www.chemistwarehouse.com.au/buy/31691/bisolvon-dry-oral-liquid-200ml-cough-liquid',
-    false
+    true
   ),
   (
     (select id from public.symptom_categories where slug = 'stomach'),
     'Mylanta 2Go Antacid Double Strength Tablets Lemon Mint 48 Pack',
     '胸やけ・消化不良・胃の不快感・ガスを和らげる携帯用のチュアブル制酸薬',
     'Magnesium hydroxide 400mg, Aluminium hydroxide 400mg, Simethicone 40mg',
-    ARRAY['12歳超', '他の薬と2時間あける', '腎疾患がある方は要相談', '14日を超えて連用しない']::text[],
+    ARRAY['他の薬と2時間あける', '腎疾患がある方は要相談', '14日を超えて連用しない']::text[],
     null,
     date '2026-08-22',
     'https://www.chemistwarehouse.com.au/buy/59433/mylanta-2go-antacid-double-strength-tablets-lemon-mint-48-pack',
-    false
+    true
   ),
   (
     (select id from public.symptom_categories where slug = 'stomach'),
     'Hydralyte Electrolyte Effervescent Orange 20 Tablets',
     '嘔吐・下痢や発汗などで失われた水分と電解質の補給を助ける発泡タブレット',
     'Glucose 1.62g, Citric acid 672mg, Sodium, Potassium（各1錠）',
-    ARRAY['腎疾患または心臓・血圧の薬を使用中の方は要相談', '年齢別の最大量を守る']::text[],
+    ARRAY['腎疾患または心臓・血圧の薬を使用中の方は要相談']::text[],
     null,
     date '2026-08-22',
     'https://www.chemistwarehouse.com.au/buy/61149/hydralyte-electrolyte-effervescent-orange-20-tablets',
-    false
+    true
   ),
   (
     (select id from public.symptom_categories where slug = 'head_fever'),
     'Panadol Rapid Paracetamol Pain Relief 32 Caplets',
     '頭痛・筋肉痛・歯痛・風邪に伴う痛みや発熱を素早く和らげる鎮痛解熱剤',
     'Paracetamol 500mg',
-    ARRAY['12歳以上', '他のパラセタモール製品と併用しない', '用量超過は重い肝障害の危険']::text[],
+    ARRAY['他のパラセタモール製品と併用しない', '用量超過は重い肝障害の危険']::text[],
     null,
     date '2026-08-22',
     'https://www.chemistwarehouse.com.au/buy/145676/panadol-rapid-32-caplets',
-    false
+    true
   ),
   (
     (select id from public.symptom_categories where slug = 'head_fever'),
     'Nurofen Zavance Fast Pain Relief Tablets 24 Pack',
     '頭痛・筋肉痛・歯痛などの痛みや炎症、発熱を和らげる速効タイプの鎮痛剤',
     'Ibuprofen sodium dihydrate 256mg（Ibuprofen 200mg相当）',
-    ARRAY['7歳以上', '胃潰瘍・腎臓・心臓の問題がある方は使用不可', 'NSAID']::text[],
+    ARRAY['胃潰瘍・腎臓・心臓の問題がある方は使用不可', 'NSAID']::text[],
     null,
     date '2026-08-22',
     'https://www.chemistwarehouse.com.au/buy/75994/nurofen-zavance-fast-pain-relief-tablets-200mg-ibuprofen-24-pack',
-    false
+    true
   ),
   (
     (select id from public.symptom_categories where slug = 'allergy'),
     'Zyrtec 10mg 10 Tablets',
     'くしゃみ・鼻水・鼻のかゆみ・目のかゆみや涙目を最大24時間和らげる抗ヒスタミン薬',
     'Cetirizine hydrochloride 10mg',
-    ARRAY['12歳以上', '眠気が出る可能性あり', '肝臓・腎臓疾患がある方は要相談']::text[],
+    ARRAY['眠気が出る可能性あり', '肝臓・腎臓疾患がある方は要相談']::text[],
     null,
     date '2026-08-22',
     'https://www.chemistwarehouse.com.au/buy/151105/zyrtec-10mg-10-tablets',
-    false
+    true
   ),
   (
     (select id from public.symptom_categories where slug = 'allergy'),
     'Demazin Allergy & Hayfever 10 Tablets',
     'くしゃみ・鼻水・目のかゆみや涙目を24時間和らげる非眠気タイプの抗ヒスタミン薬',
     'Loratadine 10mg',
-    ARRAY['12歳以上', '1日1回', '症状が5日以上続く場合は要相談']::text[],
+    ARRAY['1日1回', '症状が5日以上続く場合は要相談']::text[],
     null,
     date '2026-08-22',
     'https://www.chemistwarehouse.com.au/buy/138343/demazin-allergy-hayfever-10-tablets',
-    false
+    true
   ),
   (
     (select id from public.symptom_categories where slug = 'skin_insect_bite'),
@@ -396,18 +397,18 @@ values
     null,
     date '2026-08-22',
     'https://www.chemistwarehouse.com.au/buy/31254/stingose-spray-pack-100ml',
-    false
+    true
   ),
   (
     (select id from public.symptom_categories where slug = 'skin_scratch'),
     'Savlon Antiseptic Cream for Cuts Grazes Bites 50g',
     '切り傷・擦り傷・水ぶくれ・虫刺されなどに使える抗菌クリーム',
     'Chlorhexidine hydrochloride 1mg/g, Cetrimide 5mg/g',
-    ARRAY['3歳以上', '深い傷や頭・首の開放創には使用不可', '外用のみ']::text[],
+    ARRAY['深い傷や頭・首の開放創には使用不可', '外用のみ']::text[],
     null,
     date '2026-08-22',
     'https://www.chemistwarehouse.com.au/buy/31228/savlon-antiseptic-cream-for-cuts-grazes-bites-50g',
-    false
+    true
   ),
   (
     (select id from public.symptom_categories where slug = 'skin_sunburn'),
@@ -418,5 +419,5 @@ values
     null,
     date '2026-08-22',
     'https://www.chemistwarehouse.com.au/buy/31143-ego-soov-antiseptic-cream-50g',
-    false
+    true
   );

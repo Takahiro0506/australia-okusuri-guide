@@ -42,3 +42,6 @@ next-env.d.ts
 
 # design references (not part of the app)
 mock.jpg
+
+# office lock files
+~$*
