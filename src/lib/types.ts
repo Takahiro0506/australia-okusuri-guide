@@ -30,3 +30,23 @@ export interface Product {
   is_active: boolean;
   created_at: string;
 }
+
+/**
+ * fixed は選択式ステップには表示せず、カード生成時に選択状態と無関係に
+ * 常に末尾へ追加する特殊な種別。他の3種類とは buildConsultText 内での
+ * 扱いが異なる。
+ */
+export type ClauseType = "symptom" | "duration" | "context" | "fixed";
+
+export interface PhraseClause {
+  id: string;
+  clause_type: ClauseType;
+  /** 親カテゴリのslug。null は全カテゴリ共通(duration/context/fixedで使用)。 */
+  applies_to_category: string | null;
+  label_ja: string;
+  text_en: string;
+  sort_order: number;
+  is_active: boolean;
+  last_reviewed_date: string | null;
+  created_at: string;
+}
