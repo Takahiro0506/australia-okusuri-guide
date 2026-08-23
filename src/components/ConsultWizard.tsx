@@ -187,7 +187,7 @@ export function ConsultWizard({
                   <ChevronLeftIcon className="h-5 w-5" />
                 </button>
               )}
-              <h1 className="text-base font-bold text-gray-900">薬剤師に相談する</h1>
+              <h1 className="text-base font-bold text-gray-900">薬剤師に見せる英語</h1>
             </div>
 
             {typeof step === "number" && (
