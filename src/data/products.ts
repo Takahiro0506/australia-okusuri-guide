@@ -370,7 +370,7 @@ export const products: Product[] = [
     category_id: "skin_insect_bite",
     brand_name_en: "Stingose Spray Pack 100mL",
     description_ja: "虫刺されや植物による刺激の痛み・かゆみ・腫れを和らげる応急処置スプレー",
-    active_ingredient: "Aluminium sulfate 200mg/mL（20% w/v）",
+    active_ingredient: "Aluminium sulfate 200mg/mL (20% w/v)",
     caution_flags: ["外用のみ", "目に入れない", "症状が続く場合は要相談"],
     state_note: null,
     last_reviewed_date: "2026-08-22",
