@@ -1,0 +1,60 @@
+id,clause_type,applies_to_category,label_ja,text_en,sort_order,is_active,last_reviewed_date,created_at
+008caf9f-9b5f-456a-8ac0-e1f375870d0f,context,null,錠剤を飲むのが苦手,I find tablets difficult to swallow.,90,true,null,2026-08-22 15:35:05.263501+00
+0e8c8d05-bdac-424d-a99d-bfa29cecf55c,context,null,自分が使います,This is for myself.,110,true,null,2026-08-22 15:35:05.263501+00
+1dac4052-7013-46c2-b789-bd8472a40b5d,context,null,薬のアレルギーがある,I have an allergy to some medicines.,60,true,null,2026-08-22 15:35:05.263501+00
+2539036c-e74d-4c6b-8921-47b39368f04d,context,null,旅行中で数日分ほしい,I am travelling and only need enough for a few days.,120,true,null,2026-08-22 15:35:05.263501+00
+4edd2558-b116-447d-b408-f0f78b5a4720,context,null,薬は何も飲んでいない,I am not taking any other medication.,30,true,null,2026-08-22 15:35:05.263501+00
+59c84b4c-8c84-40d9-afd4-f668cf4d0858,context,null,妊娠中です,I am pregnant.,40,true,null,2026-08-22 15:35:05.263501+00
+5f96a35d-08ca-4dc2-bad6-6089264be780,context,null,ほかに薬を飲んでいる,I am taking other medication.,20,true,null,2026-08-22 15:35:05.263501+00
+75da6419-b641-44e4-8e60-c9bc82699f44,context,null,高血圧の薬を飲んでいる,I am taking medication for high blood pressure.,10,true,null,2026-08-22 15:35:05.263501+00
+8393138f-fe8a-4d89-a926-0731d4fb1b46,context,null,眠くならない薬がいい,I would prefer a non-drowsy medicine.,80,true,null,2026-08-22 15:35:05.263501+00
+912a4f53-bb33-4e2b-8ef3-3f1105ce7418,context,null,授乳中です,I am breastfeeding.,50,true,null,2026-08-22 15:35:05.263501+00
+a2386b55-6833-4d61-b57a-aef8889e96f1,context,null,液体・シロップタイプがいい,I would prefer a liquid or syrup.,100,true,null,2026-08-22 15:35:05.263501+00
+c130f480-83e8-4293-9b01-3e9c93db004f,context,null,喘息がある,I have asthma.,70,true,null,2026-08-22 15:35:05.263501+00
+0f94696b-8bd6-45e5-bb76-2c42b7a34937,duration,null,2〜3日前から,It started 2-3 days ago.,30,true,null,2026-08-22 15:35:05.263501+00
+5a640d63-748f-43a8-9ea0-4a87809948c2,duration,null,2週間以上前から,It started more than two weeks ago.,50,true,null,2026-08-22 15:35:05.263501+00
+88d750f3-6ce3-4d2b-b46c-6b2b56b3ba77,duration,null,1週間ほど前から,It started about a week ago.,40,true,null,2026-08-22 15:35:05.263501+00
+d76537c5-0394-48a0-93e5-d4d611c65625,duration,null,今日から,It started today.,10,true,null,2026-08-22 15:35:05.263501+00
+fae6bdb3-ebc0-4fd1-ba98-e9e8de4a39a3,duration,null,昨日から,It started yesterday.,20,true,null,2026-08-22 15:35:05.263501+00
+5b338102-d50d-46a1-9027-0524a76b8613,fixed,null,(固定・締めの依頼),Could you recommend something suitable?,10,true,null,2026-08-22 15:35:05.263501+00
+e5f6e08b-7768-407b-a2ba-49881910f206,fixed,null,(固定・双方向化),"I'm not confident in English. Could you please write down your answer, or show me the product?",20,true,null,2026-08-22 15:35:05.263501+00
+0749cd39-2cc3-4cba-979b-5705dfdca6ae,symptom,head_fever,頭が痛い,I have a headache.,10,true,null,2026-08-22 15:35:05.263501+00
+0dc7b484-ac98-4ad9-b4ca-83e041d3e1b8,symptom,stomach,下痢をしている,I have diarrhoea.,10,true,null,2026-08-22 15:35:05.263501+00
+0e7688d5-54bd-48ca-878c-417c869461cd,symptom,stomach,お腹が張っている,I feel bloated.,60,true,null,2026-08-22 15:35:05.263501+00
+10a21052-a394-4a0c-b3be-9c94a1bb15e9,symptom,head_fever,体がだるい,I feel tired and run down.,70,true,null,2026-08-22 15:35:05.263501+00
+10bd9141-0db1-4fc0-906c-d16472116fe0,symptom,stomach,吐いてしまった,I have been vomiting.,30,true,null,2026-08-22 15:35:05.263501+00
+1d37edfc-b8b7-4284-9c01-04a92372a504,symptom,skin,虫に刺された,I have an insect bite.,30,true,null,2026-08-22 15:35:05.263501+00
+22033fe1-aefd-4453-add7-6ae198d0a51a,symptom,stomach,吐き気がある,I feel nauseous.,20,true,null,2026-08-22 15:35:05.263501+00
+3084740b-9adf-44ed-8db9-2b006663cb1a,symptom,cold,喉が痛い,I have a sore throat.,10,true,null,2026-08-22 15:35:05.263501+00
+3257d389-29f2-4a76-9a88-f8267384def9,symptom,stomach,便秘している,I am constipated.,80,true,null,2026-08-22 15:35:05.263501+00
+4b55c5ed-57a0-4a29-8c59-74e94f86b426,symptom,cold,夜になると咳がひどくなる,My cough gets worse at night.,50,true,null,2026-08-22 15:35:05.263501+00
+4bd772a1-912f-4503-b05c-22b6e7c4cb93,symptom,cold,熱はない,I do not have a fever.,90,true,null,2026-08-22 15:35:05.263501+00
+520b0e4f-cadd-49c1-bafc-665c301f100d,symptom,stomach,胸やけがする,I have heartburn.,50,true,null,2026-08-22 15:35:05.263501+00
+52a026eb-cec0-4871-b48a-fd48abf959c8,symptom,head_fever,熱がある,I have a fever.,40,true,null,2026-08-22 15:35:05.263501+00
+5aa058e6-bd98-4461-9dfa-ebac2806506e,symptom,skin,切り傷がある,I have a cut.,20,true,null,2026-08-22 15:35:05.263501+00
+633b4e03-ac72-4f21-afcc-72298ff3afdc,symptom,cold,鼻水が出る,I have a runny nose.,60,true,null,2026-08-22 15:35:05.263501+00
+67a007e1-1446-4c1f-9ebf-92148c1e3c52,symptom,skin,傷口が膿んでいるように見える,The wound looks infected.,80,true,null,2026-08-22 15:35:05.263501+00
+702b301e-dc33-4bd6-b5e2-171a50e610ec,symptom,allergy,鼻水が止まらない,I have a constant runny nose.,20,true,null,2026-08-22 15:35:05.263501+00
+7653a2b0-848b-4c1a-82b6-c570078e09ab,symptom,head_fever,ずきずきする頭痛がする,I have a throbbing headache.,20,true,null,2026-08-22 15:35:05.263501+00
+826d51c3-7d11-493c-9027-22283403f1c2,symptom,cold,声がかれている,My voice is hoarse.,80,true,null,2026-08-22 15:35:05.263501+00
+83a5de13-6de9-4209-b5ed-fed10672cc3b,symptom,stomach,お腹がしぼられるように痛い,I have stomach cramps.,70,true,null,2026-08-22 15:35:05.263501+00
+8b285f8d-c779-4391-8e06-63bf73644c4e,symptom,allergy,くしゃみが止まらない,I cannot stop sneezing.,10,true,null,2026-08-22 15:35:05.263501+00
+97ac8f31-e8e9-4e84-9276-bbadc7b73b4c,symptom,allergy,目が赤くなっている,My eyes are red.,40,true,null,2026-08-22 15:35:05.263501+00
+98d39568-0380-4e66-b715-02a2e285de86,symptom,skin,日焼けでひりひりする,My sunburn is stinging.,70,true,null,2026-08-22 15:35:05.263501+00
+98f1734e-7253-45c5-967a-ff2e1d60fe13,symptom,cold,痰がからむ咳が出る,I have a cough with phlegm.,40,true,null,2026-08-22 15:35:05.263501+00
+a2a8c25f-4777-4771-a7eb-563cae79c39a,symptom,cold,鼻がつまっている,I have a blocked nose.,70,true,null,2026-08-22 15:35:05.263501+00
+aed0d596-bbe2-40cd-bce3-02522502a5c2,symptom,skin,擦り傷がある,I have a graze.,10,true,null,2026-08-22 15:35:05.263501+00
+b6bd6ff6-6d87-47ad-b424-a7feece65ab8,symptom,allergy,花粉症だと思う,I think it is hay fever.,70,true,null,2026-08-22 15:35:05.263501+00
+b997ebae-19a3-40c0-8107-cca1c7a93323,symptom,cold,唾を飲み込むと喉が痛い,It hurts when I swallow.,20,true,null,2026-08-22 15:35:05.263501+00
+bf287e83-b997-448c-be63-f04622ab07d8,symptom,skin,刺されたところが腫れている,The bite is swollen.,40,true,null,2026-08-22 15:35:05.263501+00
+c364d3c1-611d-44ae-b31b-e572974ff92d,symptom,skin,日焼けで肌が赤くなっている,I have sunburn.,60,true,null,2026-08-22 15:35:05.263501+00
+c56a18f8-5634-460b-b802-b8b1a71fb93a,symptom,stomach,食欲がない,I have no appetite.,90,true,null,2026-08-22 15:35:05.263501+00
+c986559a-982c-4b08-b74c-3984d1e6ba82,symptom,head_fever,寒気がする,I have chills.,50,true,null,2026-08-22 15:35:05.263501+00
+ca27ab26-70ec-4657-a9ee-4e1b23fc3cd7,symptom,stomach,胃がむかむかする,I have an upset stomach.,40,true,null,2026-08-22 15:35:05.263501+00
+d2e8a690-bd8f-40e4-9b96-abad3954083b,symptom,allergy,じんましんが出ている,I have hives.,60,true,null,2026-08-22 15:35:05.263501+00
+d8b4f02d-ac2c-4d17-8fb0-71154bcbdded,symptom,head_fever,体の節々が痛い,My body aches.,60,true,null,2026-08-22 15:35:05.263501+00
+e1eceed2-8133-4476-a4bf-6fe12fc5db91,symptom,allergy,目がかゆい,My eyes are itchy.,30,true,null,2026-08-22 15:35:05.263501+00
+e3ec2ced-3e8b-4d17-8d39-d234ba026bfc,symptom,cold,乾いた咳が出る,I have a dry cough.,30,true,null,2026-08-22 15:35:05.263501+00
+ec85200c-791f-4215-b499-f0525d60b7d1,symptom,head_fever,頭が重い感じがする,My head feels heavy.,30,true,null,2026-08-22 15:35:05.263501+00
+f5968aee-6a94-48c7-8dae-9d46f182dae8,symptom,allergy,肌がかゆい,My skin is itchy.,50,true,null,2026-08-22 15:35:05.263501+00
+fc94ee3f-d7e3-4df0-b94f-3eb04043a312,symptom,skin,刺されたところがかゆい,The bite is itchy.,50,true,null,2026-08-22 15:35:05.263501+00

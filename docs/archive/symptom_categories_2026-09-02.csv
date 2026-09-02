@@ -1,0 +1,12 @@
+id,slug,parent_slug,name_ja,sort_order,created_at
+1704a114-9ef3-4f62-927b-089cbf2def4a,cold,null,風邪の症状,1,2026-08-22 09:08:26.018364+00
+fa36d3ba-b9d8-4b69-b3b9-179588e1eb9c,cold_combined,cold,風邪(複合症状),1,2026-08-22 09:08:26.018364+00
+aee6c7a4-ff06-4e93-86c9-c63ab6cb7587,skin_scratch,skin,擦り傷,1,2026-08-22 09:08:26.018364+00
+f7b4c641-a0c7-401c-b4d3-925aceeda3c6,cold_throat,cold,喉の痛み,2,2026-08-22 09:08:26.018364+00
+dfb2e7c8-8a6d-4998-8d2b-52eb32748926,skin_insect_bite,skin,虫刺され,2,2026-08-22 09:08:26.018364+00
+fc3fe798-c2ee-4e7c-9ae9-100e853b71c7,stomach,null,お腹の不調,2,2026-08-22 09:08:26.018364+00
+2dabb888-6d1e-4e19-bde6-fdae0b47773f,cold_cough,cold,咳,3,2026-08-22 09:08:26.018364+00
+3e5d1058-bd33-4bd0-9633-cf67fd8e4a5f,head_fever,null,頭痛・発熱,3,2026-08-22 09:08:26.018364+00
+c0339434-afba-46e5-9a21-ab39a97e246e,skin_sunburn,skin,日焼け,3,2026-08-22 09:08:26.018364+00
+c5c9899c-49b3-48ea-8446-2edc143374b5,allergy,null,アレルギー・花粉症,4,2026-08-22 09:08:26.018364+00
+74a962e0-83fb-4a02-9187-80fa9351fbba,skin,null,擦り傷・虫刺され・日焼け,5,2026-08-22 09:08:26.018364+00
