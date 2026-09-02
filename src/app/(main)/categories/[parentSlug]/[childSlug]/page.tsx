@@ -1,8 +1,16 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getChildCategoryBySlug, getProductsByCategoryId } from "@/lib/data";
+import {
+  getAllChildCategoryParams,
+  getChildCategoryBySlug,
+  getProductsByCategoryId,
+} from "@/lib/data";
 import { ChevronLeftIcon } from "@/components/icons";
 import { ProductList } from "@/components/ProductList";
+
+export function generateStaticParams() {
+  return getAllChildCategoryParams();
+}
 
 export default async function ChildCategoryProductsPage({
   params,

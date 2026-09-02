@@ -2,12 +2,17 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
   getChildCategories,
+  getParentCategories,
   getParentCategoryBySlug,
   getProductsByCategoryId,
 } from "@/lib/data";
 import { getCategoryIcon } from "@/lib/categories";
 import { ChevronLeftIcon, ChevronRightIcon, MedicalBagIcon } from "@/components/icons";
 import { ProductList } from "@/components/ProductList";
+
+export function generateStaticParams() {
+  return getParentCategories().map((c) => ({ parentSlug: c.slug }));
+}
 
 export default async function ParentCategoryPage({
   params,

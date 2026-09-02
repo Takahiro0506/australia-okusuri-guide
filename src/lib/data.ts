@@ -56,3 +56,14 @@ export function getActivePhraseClauses(): PhraseClause[] {
     .filter((c) => c.is_active)
     .sort((a, b) => a.sort_order - b.sort_order);
 }
+
+// generateStaticParams用。動的ルートが取りうる値をすべて静的データから列挙する。
+export function getAllChildCategoryParams(): { parentSlug: string; childSlug: string }[] {
+  return symptomCategories
+    .filter((c): c is SymptomCategory & { parent_slug: string } => c.parent_slug !== null)
+    .map((c) => ({ parentSlug: c.parent_slug, childSlug: c.slug }));
+}
+
+export function getAllActiveProductIds(): string[] {
+  return products.filter((p) => p.is_active).map((p) => p.id);
+}

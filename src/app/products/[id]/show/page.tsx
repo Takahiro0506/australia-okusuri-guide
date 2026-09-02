@@ -1,6 +1,10 @@
 import { notFound } from "next/navigation";
-import { getProductById } from "@/lib/data";
+import { getAllActiveProductIds, getProductById } from "@/lib/data";
 import { BackButton } from "@/components/BackButton";
+
+export function generateStaticParams() {
+  return getAllActiveProductIds().map((id) => ({ id }));
+}
 
 export default async function ShowToStaffPage({
   params,
