@@ -1,17 +1,10 @@
 import Link from "next/link";
-import { supabase } from "@/lib/supabase";
+import { getParentCategories } from "@/lib/data";
 import { getCategoryIcon } from "@/lib/categories";
 import { ChevronRightIcon, MedicalBagIcon } from "@/components/icons";
-import type { SymptomCategory } from "@/lib/types";
 
-export default async function HomePage() {
-  const { data: categories, error } = await supabase
-    .from("symptom_categories")
-    .select("*")
-    .is("parent_slug", null)
-    .order("sort_order", { ascending: true });
-
-  const symptomCategories = categories as SymptomCategory[] | null;
+export default function HomePage() {
+  const symptomCategories = getParentCategories();
 
   return (
     <div className="mx-auto max-w-md px-4 py-8">
@@ -28,19 +21,13 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {error && (
-          <p className="p-5 text-sm text-red-600">
-            症状カテゴリの取得に失敗しました。しばらくしてから再度お試しください。
-          </p>
-        )}
-
-        {!error && (!symptomCategories || symptomCategories.length === 0) && (
+        {symptomCategories.length === 0 && (
           <p className="p-5 text-sm text-gray-500">
             現在表示できる症状カテゴリがありません。
           </p>
         )}
 
-        {!error && symptomCategories && symptomCategories.length > 0 && (
+        {symptomCategories.length > 0 && (
           <ul>
             {symptomCategories.map((category, index) => {
               const Icon = getCategoryIcon(category.slug) ?? MedicalBagIcon;

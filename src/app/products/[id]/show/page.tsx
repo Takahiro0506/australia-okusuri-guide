@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
-import { supabase } from "@/lib/supabase";
+import { getProductById } from "@/lib/data";
 import { BackButton } from "@/components/BackButton";
-import type { Product } from "@/lib/types";
 
 export default async function ShowToStaffPage({
   params,
@@ -10,13 +9,9 @@ export default async function ShowToStaffPage({
 }) {
   const { id } = await params;
 
-  const { data: product, error } = await supabase
-    .from("products")
-    .select("brand_name_en, active_ingredient")
-    .eq("id", id)
-    .maybeSingle<Pick<Product, "brand_name_en" | "active_ingredient">>();
+  const product = getProductById(id);
 
-  if (error || !product) {
+  if (!product) {
     notFound();
   }
 

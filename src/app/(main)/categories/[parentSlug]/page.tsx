@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { supabase } from "@/lib/supabase";
-import type { SymptomCategory, Product } from "@/lib/types";
+import {
+  getChildCategories,
+  getParentCategoryBySlug,
+  getProductsByCategoryId,
+} from "@/lib/data";
 import { getCategoryIcon } from "@/lib/categories";
 import { ChevronLeftIcon, ChevronRightIcon, MedicalBagIcon } from "@/components/icons";
 import { ProductList } from "@/components/ProductList";
@@ -13,34 +16,19 @@ export default async function ParentCategoryPage({
 }) {
   const { parentSlug } = await params;
 
-  const { data: parent, error: parentError } = await supabase
-    .from("symptom_categories")
-    .select("*")
-    .eq("slug", parentSlug)
-    .is("parent_slug", null)
-    .maybeSingle<SymptomCategory>();
+  const parent = getParentCategoryBySlug(parentSlug);
 
-  if (parentError || !parent) {
+  if (!parent) {
     notFound();
   }
 
-  const { data: children, error: childrenError } = await supabase
-    .from("symptom_categories")
-    .select("*")
-    .eq("parent_slug", parentSlug)
-    .order("sort_order", { ascending: true });
-
-  const childCategories = (children as SymptomCategory[] | null) ?? [];
+  const childCategories = getChildCategories(parentSlug);
 
   // 子カテゴリが1つ以下なら中間選択をスキップし、そのまま商品一覧を表示する
-  if (!childrenError && childCategories.length <= 1) {
+  if (childCategories.length <= 1) {
     const targetCategory = childCategories[0] ?? parent;
 
-    const { data: products, error: productsError } = await supabase
-      .from("products")
-      .select("*")
-      .eq("category_id", targetCategory.id)
-      .order("brand_name_en", { ascending: true });
+    const products = getProductsByCategoryId(targetCategory.id);
 
     return (
       <div className="mx-auto max-w-md px-4 py-8">
@@ -57,10 +45,7 @@ export default async function ParentCategoryPage({
           </div>
 
           <div className="p-5">
-            <ProductList
-              products={products as Product[] | null}
-              error={Boolean(productsError)}
-            />
+            <ProductList products={products} error={false} />
           </div>
         </div>
       </div>
@@ -83,13 +68,7 @@ export default async function ParentCategoryPage({
           <h1 className="text-base font-bold text-gray-900">{parent.name_ja}</h1>
         </div>
 
-        {childrenError && (
-          <p className="p-5 text-sm text-red-600">
-            症状カテゴリの取得に失敗しました。しばらくしてから再度お試しください。
-          </p>
-        )}
-
-        {!childrenError && childCategories.length > 0 && (
+        {childCategories.length > 0 && (
           <ul>
             {childCategories.map((child, index) => (
               <li

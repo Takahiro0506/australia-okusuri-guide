@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { supabase } from "@/lib/supabase";
-import type { Product, SymptomCategory } from "@/lib/types";
+import { getChildCategoryBySlug, getProductsByCategoryId } from "@/lib/data";
 import { ChevronLeftIcon } from "@/components/icons";
 import { ProductList } from "@/components/ProductList";
 
@@ -12,22 +11,13 @@ export default async function ChildCategoryProductsPage({
 }) {
   const { parentSlug, childSlug } = await params;
 
-  const { data: child, error: childError } = await supabase
-    .from("symptom_categories")
-    .select("*")
-    .eq("slug", childSlug)
-    .eq("parent_slug", parentSlug)
-    .maybeSingle<SymptomCategory>();
+  const child = getChildCategoryBySlug(parentSlug, childSlug);
 
-  if (childError || !child) {
+  if (!child) {
     notFound();
   }
 
-  const { data: products, error } = await supabase
-    .from("products")
-    .select("*")
-    .eq("category_id", child.id)
-    .order("brand_name_en", { ascending: true });
+  const products = getProductsByCategoryId(child.id);
 
   return (
     <div className="mx-auto max-w-md px-4 py-8">
@@ -44,10 +34,7 @@ export default async function ChildCategoryProductsPage({
         </div>
 
         <div className="p-5">
-          <ProductList
-            products={products as Product[] | null}
-            error={Boolean(error)}
-          />
+          <ProductList products={products} error={false} />
         </div>
       </div>
     </div>
