@@ -42,7 +42,7 @@ export interface PhraseClause {
   id: string;
   clause_type: ClauseType;
   /** 親カテゴリのslug。null は全カテゴリ共通(duration/context/fixedで使用)。 */
-  applies_to_category: string | null;
+  applies_to_category: ParentCategorySlug | null;
   label_ja: string;
   text_en: string;
   sort_order: number;
