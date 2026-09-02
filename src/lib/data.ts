@@ -5,6 +5,11 @@ import type { Product, SymptomCategory, PhraseClause } from "./types";
 
 // 各ページが元々Supabaseに投げていたクエリ(絞り込み・並び替え)を
 // 静的データに対して再現するだけの関数群。書き込み・キャッシュ制御は行わない。
+//
+// 注意: is_active によるフィルタは表示を止めるだけで配信は止めない。
+// 静的化後はソースがJSバンドルに含まれるため、is_active: false の行を
+// 追加してもその内容はクライアントに配信され、ブラウザの開発者ツール等
+// から読める状態になる(SupabaseのRLSのようなサーバー側の遮断はない)。
 
 export function getParentCategories(): SymptomCategory[] {
   return symptomCategories
